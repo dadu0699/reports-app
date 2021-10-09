@@ -1,0 +1,108 @@
+version: "3.9"
+services:
+  front-end:
+    build: ./Front-end
+    ports:
+      - "5000:5000"
+    restart: on-failure
+    networks:
+      - frontend_network
+      - service_network
+  
+  load-balancer:
+    build: ./Load-balancer
+    ports: 
+      - "8080:8080"
+    restart: on-failure
+    networks:
+      - service_network
+    depends_on:
+      - server-replica-1
+      - server-replica-2
+      - server-replica-3
+
+  server-replica-1:
+    build: ./Back-end
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    networks:
+      - service_network
+      - db_network
+    depends_on:
+      - database
+    environment:
+      PORT: 3000
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootG13
+      MYSQL_DATABASE: ReportsDB
+      MYSQL_HOST: database
+      SERVER: replica-1
+
+  server-replica-2:
+    build: ./Back-end
+    ports:
+      - "3001:3001"
+    restart: on-failure
+    networks:
+      - service_network
+      - db_network
+    depends_on:
+      - database
+    environment:
+      PORT: 3001
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootG13
+      MYSQL_DATABASE: ReportsDB
+      MYSQL_HOST: database
+      SERVER: replica-2
+
+  server-replica-3:
+    build: ./Back-end
+    ports:
+      - "3002:3002"
+    restart: on-failure
+    networks:
+      - service_network
+      - db_network
+    depends_on:
+      - database
+    environment:
+      PORT: 3002
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootG13
+      MYSQL_DATABASE: ReportsDB
+      MYSQL_HOST: database
+      SERVER: replica-3
+
+  database:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    restart: on-failure
+    networks:
+      - db_network
+    environment:
+      MYSQL_ROOT_PASSWORD: rootG13
+
+networks:
+  frontend_network:
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: 192.168.53.0/24
+          gateway: 192.168.53.1
+
+  service_network:
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: 172.35.73.0/24
+          gateway: 172.35.73.1
+
+  db_network:
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: 10.10.13.0/24
+          gateway: 10.10.13.1
