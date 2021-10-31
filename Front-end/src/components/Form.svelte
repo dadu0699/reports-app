@@ -8,13 +8,14 @@
         detail: "",
     };
 
-    export let report = { ...cleanReport },
+    export let api, 
+        report = { ...cleanReport },
         getData,
         showNotification;
 
     let title, edit;
     $: {
-        title = report.reportID !== undefined ? "Editar" : "New";
+        title = report.reportID !== undefined ? "Update" : "New";
         edit = report.reportID !== undefined ? true : false;
     }
 
@@ -27,7 +28,7 @@
     };
 
     const addReport = async () => {
-        const url = new URL("http://127.0.0.1:8080/report");
+        const url = new URL(`${api}/report`);
         const settings = {
             method: "POST",
             headers: {
@@ -53,7 +54,7 @@
     };
 
     const updateReport = async () => {
-        const url = new URL("http://127.0.0.1:8080/report");
+        const url = new URL(`${api}/report`);
         url.searchParams.append("reportID", report.reportID);
 
         const settings = {

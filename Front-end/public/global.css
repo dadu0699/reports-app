@@ -1,5 +1,22 @@
 ::selection,
+::-webkit-selection,
 ::-moz-selection {
     color: #000;
     background: #00d68f;
+}
+
+::-webkit-scrollbar {
+    background: #f0f0f0;
+    height: 8px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #19c28a;
+}
+
+* {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #19c28a #f0f0f0;
 }

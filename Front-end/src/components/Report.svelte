@@ -1,7 +1,8 @@
 <script>
     import { createEventDispatcher } from "svelte";
 
-    export let report = {
+    export let api, 
+        report = {
             reportID: "",
             course: "",
             user: "",
@@ -16,7 +17,7 @@
     const dispatch = createEventDispatcher();
 
     const deleteReport = async () => {
-        const url = new URL("http://127.0.0.1:8080/report");
+        const url = new URL(`${api}/report`);
         url.searchParams.append("reportID", report.reportID);
 
         const settings = {

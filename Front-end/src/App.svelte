@@ -6,6 +6,8 @@
 	import Notification from "./components/Notification.svelte";
 	import Report from "./components/Report.svelte";
 
+	export let api;
+
 	let reports = [];
 	let report = {};
 	let loader = true;
@@ -21,7 +23,7 @@
 	});
 
 	const getData = async () => {
-		const url = new URL("http://127.0.0.1:8080/report");
+		const url = new URL(`${api}/report`);
 		loader = true;
 
 		try {
@@ -63,7 +65,7 @@
 <div class="container-fluid">
 	<div class="row page-content">
 		<div class="col-lg-3 col-md-4 col-12 layout-spacing align-self-center">
-			<Form {report} {getData} {showNotification} />
+			<Form {api} {report} {getData} {showNotification} />
 		</div>
 
 		<div class="col-lg-9 col-md-8 col-12 align-self-center">
@@ -90,6 +92,7 @@
 				{:else}
 					{#each reports as report}
 						<Report
+							{api}
 							{report}
 							{getData}
 							{showNotification}
