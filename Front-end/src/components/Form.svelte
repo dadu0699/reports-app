@@ -1,4 +1,6 @@
 <script>
+    import { api } from "../stores";
+
     const cleanReport = {
         reportID: undefined,
         course: "",
@@ -8,8 +10,7 @@
         detail: "",
     };
 
-    export let api, 
-        report = { ...cleanReport },
+    export let report = { ...cleanReport },
         getData,
         showNotification;
 
@@ -28,7 +29,7 @@
     };
 
     const addReport = async () => {
-        const url = new URL(`${api}/report`);
+        const url = new URL(`${$api}/report`);
         const settings = {
             method: "POST",
             headers: {
@@ -54,7 +55,7 @@
     };
 
     const updateReport = async () => {
-        const url = new URL(`${api}/report`);
+        const url = new URL(`${$api}/report`);
         url.searchParams.append("reportID", report.reportID);
 
         const settings = {

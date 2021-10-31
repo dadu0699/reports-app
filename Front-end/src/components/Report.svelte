@@ -1,23 +1,25 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import { api } from "../stores";
 
-    export let api, 
-        report = {
-            reportID: "",
-            course: "",
-            user: "",
-            identification: "",
-            currentDate: "",
-            detail: "",
-            server: "",
-        },
+    const cleanReport = {
+        reportID: undefined,
+        course: "",
+        user: "",
+        identification: "",
+        currentDate: "",
+        detail: "",
+        server: "",
+    };
+
+    export let report = { ...cleanReport },
         getData,
         showNotification;
 
     const dispatch = createEventDispatcher();
 
     const deleteReport = async () => {
-        const url = new URL(`${api}/report`);
+        const url = new URL(`${$api}/report`);
         url.searchParams.append("reportID", report.reportID);
 
         const settings = {
@@ -27,6 +29,9 @@
         try {
             const fetchResponse = await fetch(url, settings);
             const data = await fetchResponse.json();
+
+            report = { ...cleanReport };
+            setReport();
 
             await getData();
             await showNotification(
