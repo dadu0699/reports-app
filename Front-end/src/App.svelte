@@ -104,10 +104,6 @@
                     {/if}
                 {/if}
             </div>
-
-            <!-- <div class="col-12 d-flex align-items-start justify-content-end">
-				<strong> Solicitud atendida por </strong>
-			</div> -->
         </div>
 
         {#if notification.show}
@@ -132,11 +128,8 @@
         max-height: 50vh;
         overflow: auto;
         padding: 10px 25px;
-        scroll-behavior: smooth;
         scroll-snap-type: y mandatory;
-        scrollbar-color: #19c28a #f0f0f0;
         /* scrollbar-gutter: stable; */
-        scrollbar-width: thin;
     }
 
     /* .project-section * { box-sizing: border-box;	} */
