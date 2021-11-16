@@ -33,11 +33,10 @@ services:
       - database
     environment:
       PORT: 3000
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootG13
-      MYSQL_DATABASE: ReportsDB
-      MYSQL_HOST: database
       SERVER: replica-1
+    env_file:
+      - server.env
+
 
   server-replica-2:
     build: ./Back-end
@@ -51,11 +50,9 @@ services:
       - database
     environment:
       PORT: 3001
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootG13
-      MYSQL_DATABASE: ReportsDB
-      MYSQL_HOST: database
       SERVER: replica-2
+    env_file:
+      - server.env
 
   server-replica-3:
     build: ./Back-end
@@ -69,11 +66,9 @@ services:
       - database
     environment:
       PORT: 3002
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootG13
-      MYSQL_DATABASE: ReportsDB
-      MYSQL_HOST: database
       SERVER: replica-3
+    env_file:
+      - server.env
 
   database:
     image: mysql:8.0
@@ -82,8 +77,8 @@ services:
     restart: on-failure
     networks:
       - db_network
-    environment:
-      MYSQL_ROOT_PASSWORD: rootG13
+    env_file:
+      - database.env
 
 networks:
   frontend_network:
