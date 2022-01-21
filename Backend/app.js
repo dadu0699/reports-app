@@ -28,12 +28,7 @@ const server = app.listen(PORT, () => {
 });
 
 // Catch 404
-app.use((_req, res, _next) => {
-  res.status(404).send({
-    code: 404,
-    data: 'Page not found',
-  });
-});
+app.use(require('./middlewares/notFound'));
 
 module.exports = {
   app,
