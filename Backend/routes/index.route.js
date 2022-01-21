@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-require('dotenv').config();
 const server = process.env.SERVER;
 
 router.route('/').get((_req, res) => {

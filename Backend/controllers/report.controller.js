@@ -2,7 +2,6 @@ const reportModel = require('../models/report.model');
 const userController = require('../controllers/user.controller');
 const courseController = require('../controllers/course.controller');
 
-require('dotenv').config();
 const server = process.env.SERVER;
 
 const create = async (req, res) => {
@@ -15,12 +14,12 @@ const create = async (req, res) => {
     userID,
     courseID,
     server,
-    detail
+    detail,
   });
 
   res.status(200).send({
     code: 200,
-    response: { ...response, attendedBy: server }
+    response: { ...response, attendedBy: server },
   });
 };
 
@@ -31,7 +30,7 @@ const read = async (req, res) => {
   res.status(200).send({
     code: 200,
     attendedBy: server,
-    response: response
+    response: response,
   });
 };
 
@@ -46,12 +45,12 @@ const update = async (req, res) => {
     reportID,
     userID,
     courseID,
-    detail
+    detail,
   });
 
   res.status(200).send({
     code: 200,
-    response: { ...response, attendedBy: server }
+    response: { ...response, attendedBy: server },
   });
 };
 
@@ -59,12 +58,12 @@ const remove = async (req, res) => {
   const { reportID } = req.query;
 
   const response = await reportModel.remove({
-    reportID
+    reportID,
   });
 
   res.status(200).send({
     code: 200,
-    response: { ...response, attendedBy: server }
+    response: { ...response, attendedBy: server },
   });
 };
 

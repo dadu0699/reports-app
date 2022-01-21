@@ -3,6 +3,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 
+// Load environment variables from .env file, where API keys and passwords are configured
+const dotenv = require('dotenv');
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+
+// Create Express server
 const app = express();
 const PORT = process.env.PORT || 3000;
 
